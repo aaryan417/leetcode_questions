@@ -9,7 +9,7 @@ public:
         return false;
 
         else 
-         currmass= currmass+asteroids[i];
+          currmass+=asteroids[i];
         
         
      }  
