@@ -10,58 +10,46 @@
  */
 class Solution {
 public:
-
-    ListNode* reverseK(ListNode* head, int k) {
-        ListNode* prev = NULL;
+    void reverse(ListNode*& head) {
         ListNode* curr = head;
-
-        while(k--) {
+        ListNode* prev = NULL;
+        while (curr) {
             ListNode* nxt = curr->next;
             curr->next = prev;
             prev = curr;
             curr = nxt;
         }
-
-        return prev;
+        head = prev;
     }
-
-    ListNode* getKth(ListNode* head, int k) {
-        while(head && k--) {
-            head = head->next;
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        ListNode* counter=head;
+        int count=0;
+        while (counter!=NULL) {
+            counter=counter->next;
+            count++;
+        }
+        ListNode* prev=NULL;
+        ListNode* temp2=head;
+        for (int i=0;i<count/k;i++){
+            ListNode* temp3=temp2;
+            ListNode* temp4=temp2;
+            for(int i=0;i<k-1;i++){
+                temp2=temp2->next;
+            }
+            ListNode* nxt=temp2->next;
+            temp2->next=NULL;
+            reverse(temp3);
+            if(i==0) {
+                head=temp3;
+            }
+            temp2=temp4;
+            temp2->next=nxt;
+            if (prev!=NULL) {
+                prev->next=temp3;
+            }
+            prev=temp2;
+            temp2=temp2->next;
         }
         return head;
-    }
-
-    ListNode* reverseKGroup(ListNode* head, int k) {
-
-        if(!head || k == 1) return head;
-
-        ListNode* dummy = new ListNode(0);
-        dummy->next = head;
-
-        ListNode* prevGroup = dummy;
-
-        while(true) {
-
-            ListNode* kth = getKth(prevGroup, k);
-            if(!kth) break;
-
-            ListNode* groupNext = kth->next;
-
-            ListNode* start = prevGroup->next;
-
-            // break group
-            kth->next = NULL;
-
-            // reverse group
-            prevGroup->next = reverseK(start, k);
-
-            // connect tail
-            start->next = groupNext;
-
-            prevGroup = start;
-        }
-
-        return dummy->next;
     }
 };
