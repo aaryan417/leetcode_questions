@@ -1,10 +1,10 @@
 class Solution {
 public:
     int maxNumberOfBalloons(string text) {
-       int freq[26]={0};
-        for(char c : text){
-            freq[c-'a']++;
+    unordered_map<char,int> freq;
+        for(char c:text){
+            freq[c]++;
         }
-        return min({freq[0], freq[1], freq['l'-'a']>>1, freq['o'-'a']>>1, freq['n'-'a']});  
+        return min({freq['b'],freq['a'],freq['l']/2,freq['o']/2,freq['n']}); 
     }
 };
