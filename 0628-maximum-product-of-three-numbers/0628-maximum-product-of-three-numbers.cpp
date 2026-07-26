@@ -9,6 +9,6 @@ public:
      
       
        
-       return max(pos1, pos2);
+    return max(pos1, pos2);
     }
 };
