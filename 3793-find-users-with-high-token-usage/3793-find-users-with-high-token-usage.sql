@@ -4,6 +4,7 @@ select  user_id, count(prompt) as prompt_count , round(
 ) as avg_tokens
 from prompts
 group by user_id
-HAVING prompt_count > 2 AND MAX(tokens) > avg_tokens
+having prompt_count >2
+and max(tokens) >avg_tokens
 order by avg_tokens desc
 
